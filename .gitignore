@@ -1,0 +1,50 @@
+# Private credentials and local settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# User photos, indexes, caches and backups must never be published
+/INBOX/
+/OUTPUT/
+/PhotoInbox/
+/PhotoLibrary/
+/PhotoOrganizer/
+/data/
+/backups/
+/rejected/
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.log
+
+# Downloaded Windows ExifTool bundle (Docker installs ExifTool separately)
+/vendor/
+
+# Distributions belong in GitHub Releases, not source history
+/*.zip
+/*.zip.sha256
+/artifacts/*
+!/artifacts/release-validation.txt
+/build/
+/dist/
+*.egg-info/
+
+# Local test tools, Python caches and editor state
+/.qa-*/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+.codex/
+

@@ -1,0 +1,23 @@
+services:
+  photo-organizer:
+    build: .
+    image: photo-organizer:1.0.1
+    container_name: photo-organizer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      PHOTO_INBOX_ROOT: /photos/PhotoInbox
+      PHOTO_LIBRARY_ROOT: /photos/PhotoLibrary
+      PHOTO_DATA: /photos/PhotoOrganizer/data
+      PHOTO_BACKUP_ROOT: /photos/PhotoOrganizer/backups
+      PHOTO_REJECT_ROOT: /photos/PhotoOrganizer/rejected
+      PHOTO_ADMIN_USER: admin
+      PHOTO_ADMIN_PASSWORD: ${PHOTO_ADMIN_PASSWORD}
+      STABLE_INTERVAL: "5"
+      STABLE_CHECKS: "2"
+      THUMBNAIL_WORKERS: "1"
+      PUID: ${PUID:-}
+      PGID: ${PGID:-}
+    volumes:
+      - "/volume1/Organized Photo:/photos"

@@ -1,0 +1,22 @@
+Photo Organizer 1.0.1 — release validation
+Date: 2026-09-08
+
+PASS: 48 Python tests, 11.917 seconds, including the original release gate tests.
+PASS: library date ordering, deterministic pagination ties, unknown dates last,
+year/day grouping, selected date and unknown date filtering.
+PASS: real Microsoft Edge (Chromium) against temporary local HTTP service.
+PASS: final browser rerun confirms the UI displays v1.0.1.
+Desktop viewports: 1280x800, 1920x1080, 2560x1440, 3840x2160.
+Gallery columns: 4, 7, 10, 17 respectively; no page-level horizontal overflow.
+PASS: top-aligned fluid main area, newest-first years/dates/photos, collapsed
+year folders, keyboard expansion, manual collapse and date selection.
+PASS: login, legacy settings, gallery pagination, album pagination,
+same-location map pagination, EXIF lightbox, keyboard photo navigation,
+private media cache headers, logout clearing and account switch.
+
+Python runtime tested: Windows CPython 3.14.
+Pillow 12.3.0 and pillow-heif 1.6.0 (unchanged from 1.0.0).
+All photo fixtures and database concurrency tests used temporary folders.
+Map tiles were blocked in browser tests; synthetic GPS data was not sent to a provider.
+No live NAS files were modified. Docker build/start and actual Synology runtime
+are not claimed as tested. This release requires no photo move or reindex.

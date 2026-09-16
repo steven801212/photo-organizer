@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "photo-organizer"
+version = "1.0.1"
+description = "A conservative photo inbox and library organizer"
+requires-python = ">=3.11"
+dependencies = ["Pillow==12.3.0", "pillow-heif==1.6.0"]
+
+[project.scripts]
+photo-organizer = "photo_organizer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+photo_organizer = ["web/*.html", "web/*.css", "web/*.js", "web/vendor/leaflet/*", "web/vendor/leaflet/images/*"]

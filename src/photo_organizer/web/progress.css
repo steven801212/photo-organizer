@@ -1,0 +1,9 @@
+.stats{grid-template-columns:repeat(5,1fr)}
+.stat-icon.violet{background:#eee8ff;color:#7656c8}
+.welcome #progressText{display:block;margin-top:8px;color:#dbeaff;font-size:10px}
+.file-icon{width:40px;height:40px;border-radius:9px;background:#eee8ff;color:#7656c8;display:grid;place-items:center;font-size:18px;font-weight:800}
+.path-strip{grid-template-columns:repeat(3,1fr)}
+.tools #previewPage{align-self:center;min-width:44px;text-align:center;color:#777;font-size:11px}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:850px){.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:850px){.path-strip{grid-template-columns:1fr}}

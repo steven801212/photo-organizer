@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Photo Organizer</title><link rel="stylesheet" href="/vendor/leaflet/leaflet.css"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/gallery.css"><link rel="stylesheet" href="/browser.css"><link rel="stylesheet" href="/progress.css"></head>
+<body>
+  <div class="window">
+    <aside class="sidebar">
+      <div class="traffic"><i></i><i></i><i></i></div>
+      <div class="brand"><span class="brand-icon">▧</span><div><strong>Photo Organizer</strong><small>Synology Service · <span id="appVersion">v—</span></small></div></div>
+      <nav>
+        <button class="nav active" data-view="overview"><span>⌂</span>總覽</button>
+        <button class="nav" data-view="overview"><span>⇩</span>Inbox</button>
+        <button class="nav" data-view="gallery"><span>▦</span>照片圖庫</button>
+        <button class="nav" data-view="albums"><span>▣</span>私人相簿</button>
+        <button class="nav" data-view="map"><span>⌖</span>拍攝地圖</button>
+        <button class="nav" data-view="trash"><span>♲</span>回收站</button>
+        <button class="nav" data-view="history"><span>⟳</span>操作紀錄</button>
+        <button class="nav" data-view="settings"><span>⚙</span>管理中心</button>
+      </nav>
+      <div class="side-section"><p>儲存位置</p><div class="volume"><span>◉</span><div><b>Synology NAS</b><small id="library">正在連線…</small></div></div></div>
+      <div class="sidebar-foot"><button id="users" hidden>＋ 新增使用者</button><button id="logout">登出</button></div>
+    </aside>
+    <main>
+      <header class="toolbar"><div><p class="kicker">照片工作台</p><h1 id="pageTitle">總覽</h1></div><div class="health"><span id="dot"></span><div><b id="health">正在連線</b><small id="exif">檢查 ExifTool…</small></div></div></header>
+      <div id="overview" class="view"><section class="welcome"><div><span class="overline">目前狀態</span><h2 id="message">等待操作</h2><div class="bar"><i id="bar"></i></div><small id="progressText">尚未開始</small></div><div class="actions"><button class="secondary" id="scan">掃描 Inbox</button><button class="secondary" id="stop" hidden>停止</button><button class="primary" id="import" disabled>開始整理</button></div></section>
+      <section class="stats">
+        <article><div class="stat-icon blue">⇩</div><div><span>等待處理</span><strong id="total">0</strong></div></article>
+        <article><div class="stat-icon green">✓</div><div><span>新照片</span><strong id="new">0</strong></div></article>
+        <article><div class="stat-icon amber">◇</div><div><span>重複照片</span><strong id="duplicate">0</strong></div></article>
+        <article><div class="stat-icon gray">?</div><div><span>沒有日期</span><strong id="unsorted">0</strong></div></article>
+        <article><div class="stat-icon violet">…</div><div><span>其他檔案</span><strong id="other">0</strong></div></article>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><div><h3>匯入預覽</h3><p>每頁最多 500 筆；開始整理會處理完整清單</p></div><div class="tools"><button id="previewPrev">上一頁</button><span id="previewPage">1 / 1</span><button id="previewNext">下一頁</button><button id="backup">備份索引</button><button id="reindex">重新索引</button></div></div>
+        <div class="table-wrap"><table><thead><tr><th>狀態</th><th>預覽</th><th>檔名</th><th>拍攝日期</th><th>目的地</th></tr></thead><tbody id="rows"><tr><td colspan="5" class="empty"><span>⇩</span><b>Inbox 目前沒有預覽</b><small>按「掃描 Inbox」開始</small></td></tr></tbody></table></div>
+      </section>
+      <section class="path-strip"><div><span>INBOX</span><code id="inboxes">—</code></div><div><span>索引備份</span><code id="backupPath">—</code></div><div><span>儲存模式</span><code id="storageMode">檢查中…</code></div></section></div>
+      <section id="gallery" class="view hidden-view"><div class="view-head"><div><h2>照片圖庫</h2><p id="galleryCount">載入整理完成的照片</p></div><div class="gallery-tools"><input id="gallerySearch" type="search" placeholder="搜尋檔名或日期"><button id="favoriteFilter">☆ 最愛</button><select id="galleryType"><option value="">全部格式</option><option value="JPG">JPG / HEIC</option><option value="RAW">RAW</option><option value="VIDEO">影片</option></select></div></div><div id="selectionBar" class="selection-bar" hidden><b id="selectionCount">已選擇 0 張</b><button id="selectAll">選擇目前照片</button><button id="clearSelection">取消選取</button><button class="download" id="downloadSelected">下載 ZIP</button></div><div class="gallery-browser"><aside id="galleryFolders" class="gallery-folders"></aside><div><div id="galleryGrid" class="gallery-grid"><div class="gallery-empty">圖庫目前沒有照片</div></div><button id="galleryMore" class="load-more" hidden>載入更多</button></div></div></section>
+      <section id="history" class="view hidden-view"><div class="view-head"><div><h2>操作紀錄</h2><p>最近 100 次匯入與維護結果</p></div></div><div class="panel"><div class="table-wrap"><table><thead><tr><th>時間</th><th>動作</th><th>狀態</th><th>來源</th><th>目的地／錯誤</th></tr></thead><tbody id="historyRows"><tr><td colspan="5" class="empty">尚無操作紀錄</td></tr></tbody></table></div></div></section>
+      <section id="albums" class="view hidden-view"><div class="view-head"><div><h2>私人相簿</h2><p>只有你能看到自己的相簿</p></div><button id="createAlbum">＋ 新增相簿</button></div><div id="albumGrid" class="feature-grid"></div></section>
+      <section id="map" class="view hidden-view"><div class="view-head"><div><h2>拍攝地圖</h2><p id="mapCount">讀取具有 GPS 的照片</p></div><button id="mapFit" hidden>顯示所有地點</button></div><div class="photo-map-shell"><div id="photoMap" role="application" aria-label="照片拍攝地圖"></div><div id="mapEmpty" class="map-empty" hidden><b>目前沒有位置照片</b><span>重新索引後，系統會讀取既有照片的 GPS 資訊。</span></div></div></section>
+      <section id="trash" class="view hidden-view"><div class="view-head"><div><h2>回收站</h2><p>照片不會直接刪除，可在這裡安全還原</p></div><button id="restoreTrash">還原選取項目</button></div><div id="trashList" class="panel list-panel"></div></section>
+      <section id="settings" class="view hidden-view"><div class="view-head"><div><h2>管理中心</h2><p>備份、健康檢查、自動整理與帳號狀態</p></div></div><div class="feature-grid"><article><h3>索引健康</h3><p id="healthSummary">尚未檢查</p><button id="runHealth">開始檢查</button></article><article><h3>索引備份</h3><p>可先建立備份，再選擇歷史版本還原。</p><button id="settingsBackup">立即備份</button><div id="backupList"></div></article><article><h3>自動整理</h3><label><input type="checkbox" id="autoScan"> 自動掃描 Inbox</label><label><input type="checkbox" id="autoImport"> 掃描後自動整理</label><label>間隔（分鐘）<input type="number" id="scheduleMinutes" min="5" value="60"></label><label>通知網址（選填）<input id="notificationUrl" placeholder="https://..."></label><button id="saveSettings">儲存設定</button></article><article id="userAdmin"><h3>使用者管理</h3><div id="userList"></div></article></div></section>
+    </main>
+  </div>
+  <div class="login" id="login"><form id="loginForm"><div class="login-icon">▧</div><h2>Photo Organizer</h2><p>登入你的私人照片工作台</p><label>帳號<input id="username" autocomplete="username" required></label><label>密碼<input id="password" type="password" autocomplete="current-password" required></label><button class="primary">登入</button><small id="loginError"></small></form></div>
+  <div class="lightbox" id="lightbox" hidden><button id="lightboxClose">×</button><button class="lightbox-nav prev" id="lightboxPrev" aria-label="上一張">‹</button><button class="lightbox-nav next" id="lightboxNext" aria-label="下一張">›</button><div class="lightbox-layout"><div class="lightbox-photo" id="lightboxPhoto"><img id="lightboxImage" draggable="false" alt="照片預覽"><span class="zoom-hint">滾輪縮放 · 雙擊還原</span></div><aside class="exif-panel"><h3 id="lightboxName">照片資訊</h3><small id="lightboxMeta"></small><div id="exifDetails"><p>正在讀取…</p></div></aside></div></div><div id="toast"></div><script src="/vendor/leaflet/leaflet.js"></script><script src="/app.js"></script><script src="/progress.js"></script>
+</body></html>
